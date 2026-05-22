@@ -34,6 +34,9 @@ exo_24_033_exp = pd.read_csv('exo-24-033_exp.csv', comment="#")
 sus_18_004_obs = pd.read_csv('sus-18-004_obs.csv', comment="#")
 sus_18_004_exp = pd.read_csv('sus-18-004_exp.csv', comment="#")
 
+sus_23_003_obs = pd.read_csv('SUS-23-003_obs.csv', comment="#")
+sus_23_003_exp = pd.read_csv('SUS-23-003_exp.csv', comment="#")
+
 # -----------------------------
 # Cross-sections for SUS-18-004
 # -----------------------------
@@ -215,6 +218,18 @@ g_sus21003_exp = make_graph(
     sort=2
 )
 
+g_sus23003_obs = make_graph(
+	sus_23_003_obs['M'],
+	sus_23_003_obs['dM'],
+	sort=2
+)
+g_sus23003_exp = make_graph(
+	sus_23_003_exp['M'],
+	sus_23_003_exp['dM'],
+	sort=2
+)
+
+
 # -----------------------------
 # colors / line styles
 # Avoid black for EXO-24-033
@@ -223,6 +238,7 @@ col_sus20002 = ROOT.kBlue + 1
 col_sus18004 = ROOT.kYellow + 1
 col_sus21003 = ROOT.kOrange - 1
 col_exo24033 = ROOT.kRed + 1
+col_sus23003 = ROOT.kGreen + 1
 
 for g in [g_sus20002_obs, g_sus20002_exp]:
     g.SetLineColor(col_sus20002)
@@ -235,21 +251,27 @@ for g in [g_sus21003_obs, g_sus21003_exp]:
 
 for g in [g_exo24033_obs, g_exo24033_exp]:
     g.SetLineColor(col_exo24033)
+    
+for g in [g_sus23003_obs, g_sus23003_exp]:
+	g.SetLineColor(col_sus23003)
 
 g_sus20002_obs.SetLineWidth(3)
 g_sus18004_obs.SetLineWidth(3)
 g_sus21003_obs.SetLineWidth(3)
 g_exo24033_obs.SetLineWidth(3)
+g_sus23003_obs.SetLineWidth(3)
 
 g_sus20002_exp.SetLineWidth(2)
 g_sus18004_exp.SetLineWidth(2)
 g_sus21003_exp.SetLineWidth(2)
 g_exo24033_exp.SetLineWidth(2)
+g_sus23003_exp.SetLineWidth(2)
 
 g_sus20002_exp.SetLineStyle(2)
 g_sus18004_exp.SetLineStyle(2)
 g_sus21003_exp.SetLineStyle(2)
 g_exo24033_exp.SetLineStyle(2)
+g_sus23003_exp.SetLineStyle(2)
 
 # -----------------------------
 # canvas
@@ -305,6 +327,11 @@ h_exo24033.SetFillColorAlpha(col_exo24033, 0.12)
 h_exo24033.SetLineWidth(0)
 h_exo24033.Draw("F SAME")
 
+h_sus23003 = make_left_exclusion(g_sus23003_obs, xmin)
+h_sus23003.SetFillColorAlpha(col_sus23003, 0.12)
+h_sus23003.SetLineWidth(0)
+h_sus23003.Draw("F SAME")
+
 # -----------------------------
 # curves
 # -----------------------------
@@ -312,11 +339,13 @@ g_sus20002_obs.Draw("L SAME")
 g_sus18004_obs.Draw("L SAME")
 g_sus21003_obs.Draw("L SAME")
 g_exo24033_obs.Draw("L SAME")
+g_sus23003_obs.Draw("L SAME")
 
 g_sus20002_exp.Draw("L SAME")
 g_sus18004_exp.Draw("L SAME")
 g_sus21003_exp.Draw("L SAME")
 g_exo24033_exp.Draw("L SAME")
+g_sus23003_exp.Draw("L SAME")
 
 # -----------------------------
 # custom right-side panel
@@ -392,6 +421,20 @@ panel_objs.append(b_sus21003)
 latex_leg_bold.DrawLatex(x_text, y + 0.024, "#bf{Single lepton}")
 latex_leg.DrawLatex(x_text, y - 0.002, "137 fb^{-1} (13 TeV)")
 latex_leg.DrawLatex(x_text, y - 0.030, "JHEP 06 (2023) 060")
+
+# --- SUS_23-003
+y -= dy
+b_sus23003 = ROOT.TPave(x_box1, y - box_h, x_box2, y + box_h, 1, "NDC")
+b_sus23003.SetFillColorAlpha(col_sus23003, 0.18)
+b_sus23003.SetLineColor(col_sus23003)
+b_sus23003.SetLineWidth(2)
+b_sus23003.Draw()
+panel_objs.append(b_sus23003)
+
+latex_leg_bold.DrawLatex(x_text, y + 0.024, "#bf{General compressed SUSY}")
+latex_leg.DrawLatex(x_text, y - 0.002, "138 fb^{-1} (13 TeV)")
+latex_leg.DrawLatex(x_text, y - 0.030, "Phys. Rev. D 112 (2025) 112023 ")
+
 
 # --- EXO-24-033
 y -= dy
