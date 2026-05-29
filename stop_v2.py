@@ -382,6 +382,7 @@ x_text = 0.755
 box_h = 0.024
 dy = 0.115
 y = 0.865
+dy_sub = dy*0.9
 
 # --- SUS-20-002
 y -= dy
@@ -397,7 +398,7 @@ latex_leg.DrawLatex(x_text, y - 0.002, "137 fb^{-1} (13 TeV)")
 latex_leg.DrawLatex(x_text, y - 0.030, "Eur. Phys. J. C 81 (2021) 970")
 
 # --- SUS-18-004
-y -= dy
+y -= dy_sub
 b_sus18004 = ROOT.TPave(x_box1, y - box_h, x_box2, y + box_h, 1, "NDC")
 b_sus18004.SetFillColorAlpha(col_sus18004, 0.18)
 b_sus18004.SetLineColor(col_sus18004)
@@ -410,7 +411,7 @@ latex_leg.DrawLatex(x_text, y - 0.002, "137 fb^{-1} (13 TeV)")
 latex_leg.DrawLatex(x_text, y - 0.030, "JHEP 04 (2022) 091")
 
 # --- SUS-21-003
-y -= dy
+y -= dy_sub
 b_sus21003 = ROOT.TPave(x_box1, y - box_h, x_box2, y + box_h, 1, "NDC")
 b_sus21003.SetFillColorAlpha(col_sus21003, 0.18)
 b_sus21003.SetLineColor(col_sus21003)
@@ -423,7 +424,7 @@ latex_leg.DrawLatex(x_text, y - 0.002, "137 fb^{-1} (13 TeV)")
 latex_leg.DrawLatex(x_text, y - 0.030, "JHEP 06 (2023) 060")
 
 # --- SUS_23-003
-y -= dy
+y -= dy_sub
 b_sus23003 = ROOT.TPave(x_box1, y - box_h, x_box2, y + box_h, 1, "NDC")
 b_sus23003.SetFillColorAlpha(col_sus23003, 0.18)
 b_sus23003.SetLineColor(col_sus23003)
@@ -437,7 +438,7 @@ latex_leg.DrawLatex(x_text, y - 0.030, "Phys. Rev. D 112 (2025) 112023 ")
 
 
 # --- EXO-24-033
-y -= dy
+y -= dy_sub
 b_exo24033 = ROOT.TPave(x_box1, y - box_h, x_box2, y + box_h, 1, "NDC")
 b_exo24033.SetFillColorAlpha(col_exo24033, 0.18)
 b_exo24033.SetLineColor(col_exo24033)
@@ -450,7 +451,7 @@ latex_leg.DrawLatex(x_text, y - 0.002, "100 fb^{-1} (13 TeV)")
 latex_leg.DrawLatex(x_text, y - 0.030, "arXiv:2511.08212")
 
 # --- observed sample: solid line
-y -= dy
+y -= dy_sub
 obs_line = ROOT.TLine(x_box1, y, x_box2, y)
 obs_line.SetNDC()
 obs_line.SetLineColor(ROOT.kBlack)
@@ -463,7 +464,8 @@ latex_leg.DrawLatex(x_text, y + 0.010, "Observed")
 latex_leg.DrawLatex(x_text, y - 0.018, "exclusion 95% CL")
 
 # --- expected sample: dashed line
-y -= dy * 0.72
+#y -= dy * 0.72
+y -= dy * 0.6
 exp_line = ROOT.TLine(x_box1, y, x_box2, y)
 exp_line.SetNDC()
 exp_line.SetLineColor(ROOT.kBlack)

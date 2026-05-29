@@ -35,6 +35,7 @@ exo_24_033_15_exp = pd.read_csv('exo_24_033_15_exp.csv', comment="#")
 exo_24_033_20_exp = pd.read_csv('exo_24_033_20_exp.csv', comment="#")
 exo_24_033_25_exp = pd.read_csv('exo_24_033_25_exp.csv', comment="#")
 
+
 # --- global style tweaks (CMS-like) ---
 ROOT.gStyle.SetOptStat(0)
 ROOT.gStyle.SetPadTickX(1)
@@ -117,6 +118,10 @@ g_exo_24_033_12_exp.SetLineStyle(2)
 g_exo_24_033_25_exp.SetLineColor(col_exo_24_033_25)
 g_exo_24_033_25_exp.SetLineWidth(2)
 g_exo_24_033_25_exp.SetLineStyle(2)
+
+col_sus_23_003_12 = ROOT.kMagenta
+col_sus_23_003_25 = ROOT.kMagenta-5
+
 
 # --- canvas ---
 c = ROOT.TCanvas("c", "", 1200, 800)
@@ -301,8 +306,40 @@ g_sus_18_004_25_exp.SetLineWidth(2)
 g_sus_18_004_25_exp.Draw()
 
 
+# -- prompt region SUS-23-003
+h_sus_23_003_12 = ROOT.TBox(xmin, ymin_frame, 302.995 , 0.1)
+h_sus_23_003_12.SetFillColorAlpha(ROOT.kMagenta, 0.05)
+h_sus_23_003_12.SetLineWidth(0)
+h_sus_23_003_12.Draw("SAME")
 
+h_sus_23_003_25 = ROOT.TBox(xmin, ymin_frame, 352.912, 0.1)
+h_sus_23_003_25.SetFillColorAlpha(ROOT.kMagenta-5, 0.05)
+h_sus_23_003_25.SetLineWidth(0)
+h_sus_23_003_25.Draw("SAME")
 
+g_sus_23_003_12_obs = ROOT.TLine(302.995, ymin_frame, 302.995, 0.1)
+g_sus_23_003_12_obs.SetLineStyle(1)
+g_sus_23_003_12_obs.SetLineColor(col_sus_23_003_12)
+g_sus_23_003_12_obs.SetLineWidth(2)
+g_sus_23_003_12_obs.Draw()
+
+g_sus_23_003_12_exp = ROOT.TLine(370.882, ymin_frame, 370.882, 0.1)
+g_sus_23_003_12_exp.SetLineStyle(2)
+g_sus_23_003_12_exp.SetLineColor(col_sus_23_003_12)
+g_sus_23_003_12_exp.SetLineWidth(2)
+g_sus_23_003_12_exp.Draw()
+
+g_sus_23_003_25_obs = ROOT.TLine(307.987, ymin_frame, 307.987, 0.1)
+g_sus_23_003_25_obs.SetLineStyle(1)
+g_sus_23_003_25_obs.SetLineColor(col_sus_23_003_25)
+g_sus_23_003_25_obs.SetLineWidth(2)
+g_sus_23_003_25_obs.Draw()
+
+g_sus_23_003_25_exp = ROOT.TLine(352.912, ymin_frame, 352.912, 0.1)
+g_sus_23_003_25_exp.SetLineStyle(2)
+g_sus_23_003_25_exp.SetLineColor(col_sus_23_003_25)
+g_sus_23_003_25_exp.SetLineWidth(2)
+g_sus_23_003_25_exp.Draw()
 
 
 # --- horizontal dashed line for prompt region boundary ---
@@ -321,7 +358,7 @@ latex_prompt.SetTextAngle(90)
 latex_prompt.SetTextAlign(22)   # centered
 latex_prompt.DrawLatex(0.105, 0.21, "Prompt")
 
-'''
+
 # -----------------------------
 # custom right-side panel
 # -----------------------------
@@ -355,7 +392,8 @@ x_box2 = 0.740
 x_text = 0.755
 
 box_h = 0.020
-dy = 0.145
+#dy = 0.145
+dy = 0.11
 y = 0.855
 
 # --- SUS-18-004, Δm = 12 GeV
@@ -383,6 +421,28 @@ panel_objs.append(b_sus_18_004_25)
 latex_leg.DrawLatex(x_text, y - 0.002, "#Delta m = 25 GeV, 137 fb^{-1} (13 TeV)")
 # latex_leg.DrawLatex(x_text, y - 0.030, "JHEP 04 (2022) 091")
 
+
+# --- SUS-23-003 dm = 12 GeV
+y -= dy
+b_sus_23_003_12 = ROOT.TPave(x_box1, y - box_h - 0.010, x_box2, y + box_h - 0.010, 1, "NDC")
+b_sus_23_003_12.SetFillColorAlpha(col_sus_23_003_12, 0.18)
+b_sus_23_003_12.SetLineColor(col_sus_23_003_12)
+b_sus_23_003_12.SetLineWidth(2)
+b_sus_23_003_12.Draw()
+panel_objs.append(b_sus_18_004_12)
+
+latex_leg_bold.DrawLatex(x_text - 0.060, y + 0.042, "#bf{General compressed SUSY}")
+latex_leg.DrawLatex(x_text - 0.060, y + 0.020, "Phys. Rev. D 112 (2025) 112023")
+latex_leg.DrawLatex(x_text, y - 0.012, "#Delta m = 12 GeV, 138 fb^{-1} (13 TeV)")
+# --- SUS-23-003 dm = 25 GeV
+y -= dy * 0.50
+b_sus_23_003_25 = ROOT.TPave(x_box1, y - box_h, x_box2, y + box_h, 1, "NDC")
+b_sus_23_003_25.SetFillColorAlpha(col_sus_23_003_25, 0.18)
+b_sus_23_003_25.SetLineColor(col_sus_23_003_25)
+b_sus_23_003_25.SetLineWidth(2)
+b_sus_23_003_25.Draw()
+panel_objs.append(b_sus_23_003_25)
+latex_leg.DrawLatex(x_text, y - 0.002, "#Delta m = 25 GeV, 138 fb^{-1} (13 TeV)")
 
 # --- EXO-24-033, Δm = 12 GeV
 y -= dy
@@ -439,7 +499,7 @@ panel_objs.append(exp_line)
 
 latex_leg.DrawLatex(x_text, y + 0.010, "Expected")
 latex_leg.DrawLatex(x_text, y - 0.018, "exclusion 95% CL")
-'''
+
 
 # -----------------------------
 # custom right-side panel
@@ -477,7 +537,8 @@ x_text = 0.755
 
 box_h = 0.020
 box_h_leg = 0.012
-dy = 0.105          # <-- reduced from 0.145
+#dy = 0.105          # <-- reduced from 0.145
+dy = 0.0975 # <-- reduced again to incorporate 23-003
 dy_sub = dy * 0.50  # sub-entry spacing
 y = 0.855
 
@@ -511,6 +572,10 @@ panel_objs.append(b_sus_18_004_25)
 
 latex_leg.DrawLatex(x_text, y - 0.002, "#Delta m = 25 GeV, 137 fb^{-1} (13 TeV)")
 
+
+
+
+
 # =============================================
 # --- SUS-21-008, Δm = 12 GeV
 # =============================================
@@ -540,6 +605,32 @@ b_sus_21_008_25.Draw()
 panel_objs.append(b_sus_21_008_25)
 
 latex_leg.DrawLatex(x_text, y - 0.002, "#Delta m = 25 GeV, 129-137 fb^{-1} (13 TeV)")
+
+
+# --- SUS-23-003 dm = 12 GeV
+y -= dy
+#b_sus_23_003_12 = ROOT.TPave(x_box1, y - box_h - 0.010, x_box2, y + box_h - 0.010, 1, "NDC")
+b_sus_23_003_12 = ROOT.TPave(x_box1, y - box_h_leg - 0.010, x_box2, y + box_h_leg - 0.010, 1, "NDC")
+b_sus_23_003_12.SetFillColorAlpha(col_sus_23_003_12, 0.18)
+b_sus_23_003_12.SetLineColor(col_sus_23_003_12)
+b_sus_23_003_12.SetLineWidth(2)
+b_sus_23_003_12.Draw()
+panel_objs.append(b_sus_18_004_12)
+
+latex_leg_bold.DrawLatex(x_text - 0.060, y + 0.042, "#bf{General compressed SUSY}")
+latex_leg.DrawLatex(x_text - 0.060, y + 0.020, "Phys. Rev. D 112 (2025) 112023")
+latex_leg.DrawLatex(x_text, y - 0.012, "#Delta m = 12 GeV, 138 fb^{-1} (13 TeV)")
+# --- SUS-23-003 dm = 25 GeV
+y -= dy_sub
+#b_sus_23_003_25 = ROOT.TPave(x_box1, y - box_h, x_box2, y + box_h, 1, "NDC")
+#b_sus_23_003_25 = ROOT.TPave(x_box1, y - box_h_leg - 0.010, x_box2, y + box_h_leg - 0.010, 1, "NDC")
+b_sus_23_003_25 = ROOT.TPave(x_box1, y - box_h_leg, x_box2, y + box_h_leg, 1, "NDC")
+b_sus_23_003_25.SetFillColorAlpha(col_sus_23_003_25, 0.18)
+b_sus_23_003_25.SetLineColor(col_sus_23_003_25)
+b_sus_23_003_25.SetLineWidth(2)
+b_sus_23_003_25.Draw()
+panel_objs.append(b_sus_23_003_25)
+latex_leg.DrawLatex(x_text, y - 0.002, "#Delta m = 25 GeV, 138 fb^{-1} (13 TeV)")
 
 # =============================================
 # --- EXO-24-033, Δm = 12 GeV
@@ -572,7 +663,8 @@ latex_leg.DrawLatex(x_text, y - 0.002, "#Delta m = 25 GeV, 100 fb^{-1} (13 TeV)"
 # =============================================
 # --- observed / expected legend
 # =============================================
-y -= dy
+#y -= dy
+y -= dy*0.65 #<-- adjusted to fit all four analyses in panel
 
 # observed row
 obs_line = ROOT.TLine(x_box1, y, x_box2, y)
@@ -587,7 +679,8 @@ latex_leg.DrawLatex(x_text, y + 0.010, "Observed")
 latex_leg.DrawLatex(x_text, y - 0.018, "exclusion 95% CL")
 
 # expected row
-y -= dy * 0.72
+#y -= dy * 0.72
+y -= dy * 0.65 #<-- adjusted to fit all four analyses in panel
 
 exp_line = ROOT.TLine(x_box1, y, x_box2, y)
 exp_line.SetNDC()
